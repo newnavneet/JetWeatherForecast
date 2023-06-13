@@ -1,5 +1,6 @@
 package com.example.jetweatherforecast.network
 
+import com.example.jetweatherforecast.model.Weather
 import com.example.jetweatherforecast.model.WeatherObject
 import com.example.jetweatherforecast.utils.Constants
 import retrofit2.http.GET
@@ -13,5 +14,5 @@ interface WeatherApi {
         @Query("q") query: String,
         @Query("units") units: String ="imperial",
         @Query("appid") appid: String = Constants.API_KEY
-        ): WeatherObject
+        ): Weather
 }
