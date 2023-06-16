@@ -1,10 +1,8 @@
 package com.example.jetweatherforecast.widgets
 
-import androidx.compose.material3.ButtonElevation
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
@@ -14,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun WeatherAppBar(
     title : String ="Title",
@@ -25,19 +23,19 @@ fun WeatherAppBar(
    onAddActionClicked : () -> Unit = {},
    onButtonClicked : () -> Unit = {}) {
 
+
+
     TopAppBar {
-        //Text(text = title,
-       // color = MaterialTheme.colors.onSecondary,
-       // style = TextStyle(fontWeight = FontWeight.Bold,
-             //               fontSize = 15.sp) )
+        Text(text = title,
+       color = MaterialTheme.colors.onSecondary,
+        style = TextStyle(fontWeight = FontWeight.Bold,
+                     fontSize = 15.sp) )
     }
 
 
 }
 
-fun TopAppBar(scrollBehavior: () -> Unit) {
 
-}
 
 
 

@@ -1,10 +1,10 @@
 package com.example.jetweatherforecast.screens.main
 
 import android.annotation.SuppressLint
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,8 +38,8 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainScaffold(weather: Weather,navController: NavController) {
     
@@ -49,8 +49,6 @@ fun MainScaffold(weather: Weather,navController: NavController) {
 
     }) {
          MainContent(data = weather)
-        
-        
     }
   
 
