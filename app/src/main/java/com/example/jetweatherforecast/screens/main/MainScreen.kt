@@ -1,12 +1,16 @@
 package com.example.jetweatherforecast.screens.main
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.jetweatherforecast.data.DataorException
@@ -45,7 +49,13 @@ fun MainScaffold(weather: Weather,navController: NavController) {
     
     Scaffold(topBar = {
 
-        WeatherAppBar(title = "Helena,MT")
+        WeatherAppBar(title = weather.city.name + ",${weather.city.country}",
+
+            navController= navController,
+            elevation = 5.dp)
+        {
+            Log.d("TAG", "MainScaffold: Button Clicked")
+        }
 
     }) {
          MainContent(data = weather)
