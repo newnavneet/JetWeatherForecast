@@ -93,7 +93,7 @@ fun MainContent(data: Weather) {
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally) {
 
-        Text(text = "Nov 29 ",
+        Text(text = data.list[0].dt.toString(),
         style = MaterialTheme.typography.caption,
         color = MaterialTheme.colors.onSecondary,
         fontWeight = FontWeight.SemiBold,
