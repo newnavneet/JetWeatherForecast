@@ -5,11 +5,16 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -19,6 +24,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.TopAppBar
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
@@ -39,6 +45,7 @@ import com.example.jetweatherforecast.model.Weather
 import com.example.jetweatherforecast.model.WeatherObject
 import com.example.jetweatherforecast.model.Weatheritem
 import com.example.jetweatherforecast.utils.formatDate
+import com.example.jetweatherforecast.utils.formatDateTime
 import com.example.jetweatherforecast.utils.formatDecimals
 import com.example.jetweatherforecast.widgets.WeatherAppBar
 
@@ -133,11 +140,74 @@ fun MainContent(data: Weather) {
       }
         HumidityWindPressureRow(weather = data.list[0])
         Divider()
+        SunsetSunRiseRow(weather = data.list[0])
+        Text( "This Week",
+            style = MaterialTheme.typography.subtitle1,
+            fontWeight = FontWeight.Bold)
+
+        Surface(modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(),
+             color = Color(0xFFEEF1EF),
+                shape = RoundedCornerShape(size = 14.dp)
+                 ) {
+            LazyColumn(modifier = Modifier.padding(2.dp),
+                        contentPadding = PaddingValues(1.dp)){
+                items(items = data.list) { item: Weatheritem ->
+                Text(item.temp.max.toString())
+
+                }
+
+
+
+            }
+
+
+
+
+        }
+
+
+
+
+
+
+    }
+
+}
+
+@Composable
+fun SunsetSunRiseRow(weather: Weatheritem) {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(top = 15.dp, bottom = 6.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically) {
+        Row {
+            Image(painter = painterResource(id = R.drawable.sunrise),
+                contentDescription = "sunrise",
+                modifier = Modifier.size(30.dp))
+            Text(text = formatDateTime(weather.sunrise),
+            style = MaterialTheme.typography.caption)
+
+        }
+
+
+        Row {
+            Image(painter = painterResource(id = R.drawable.sunset),
+                contentDescription = "sunset",
+                modifier = Modifier.size(30.dp))
+            Text(text = formatDateTime(weather.sunset),
+                style = MaterialTheme.typography.caption)
+
+        }
+
 
     }
 
 
 }
+
 
 @Composable
 fun HumidityWindPressureRow(weather: Weatheritem) {
@@ -183,6 +253,5 @@ fun WeatherStateImage(imageUrl: String) {
     Image(painter = rememberImagePainter(imageUrl)
         , contentDescription = " icon image" ,
     modifier = Modifier.size(80.dp))
-    
 
 }
