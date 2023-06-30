@@ -34,13 +34,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.example.jetweatherforecast.R
+import com.example.jetweatherforecast.WeatherApp
 import com.example.jetweatherforecast.data.DataorException
 import com.example.jetweatherforecast.model.Weather
 import com.example.jetweatherforecast.model.WeatherObject
@@ -54,12 +59,10 @@ import com.example.jetweatherforecast.widgets.WeatherAppBar
 fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hiltViewModel()){
     Text(text = "Main Screen")
 
-    
-
     val weatherData = produceState<DataorException<Weather,Boolean,Exception>>(
         initialValue = DataorException(loading = true) ){
         // where state is produced you
-        value = mainViewModel.getWeatherData(city = "Seattle")
+        value = mainViewModel.getWeatherData(city = "Maputo")
 
     }.value
 
@@ -69,11 +72,9 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
         
         MainScaffold(weather = weatherData.data!!, navController)
 
-
     }
 
 }
-
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -92,14 +93,9 @@ fun MainScaffold(weather: Weather,navController: NavController) {
     }) {
          MainContent(data = weather)
     }
-  
 
-
-
-    // inside here we check to see actually we get our mainview model
-
+    // inside here we check to see actually we get our mainview
 }
-
 @Composable
 fun MainContent(data: Weather) {
     val weatheritem = data.list[0]
@@ -158,25 +154,12 @@ fun MainContent(data: Weather) {
                 WeatherDetailRow(weather = item )
 
                 }
-
-
-
             }
-
-
-
-
         }
-
-
-
-
-
 
     }
 
 }
-
 @Composable
 fun WeatherDetailRow(weather: Weatheritem) {
     val imageUrl = " https://openweathermap.org/img/wn/${weather.weather[0].icon}.png"
@@ -194,6 +177,27 @@ fun WeatherDetailRow(weather: Weatheritem) {
               .split(",")[0],
           modifier = Modifier.padding(start = 5.dp))
           WeatherStateImage(imageUrl = imageUrl)
+          Surface(modifier = Modifier.padding(0.dp),
+          shape = CircleShape,
+          color = Color(0xFFFFC400)) {
+              Text(weather.weather[0].description,
+                  modifier = Modifier.padding(4.dp),
+                  style = MaterialTheme.typography.caption)
+          }
+          Text(text = buildAnnotatedString {
+              withStyle(style = SpanStyle(
+                  color = Color.Blue.copy(alpha = 0.7f ),
+                  fontWeight = FontWeight.SemiBold
+              )){
+                  append(formatDecimals(weather.temp.max) + "º")
+              }
+              withStyle(
+                  style = SpanStyle(
+                      color = Color.LightGray)){
+                  append(formatDecimals(weather.temp.min) + "º")
+              }
+
+          })
 
       }
 
@@ -216,7 +220,6 @@ fun SunsetSunRiseRow(weather: Weatheritem) {
 
         }
 
-
         Row {
             Image(painter = painterResource(id = R.drawable.sunset),
                 contentDescription = "sunset",
@@ -229,9 +232,7 @@ fun SunsetSunRiseRow(weather: Weatheritem) {
 
     }
 
-
 }
-
 
 @Composable
 fun HumidityWindPressureRow(weather: Weatheritem) {
