@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
@@ -154,7 +155,7 @@ fun MainContent(data: Weather) {
             LazyColumn(modifier = Modifier.padding(2.dp),
                         contentPadding = PaddingValues(1.dp)){
                 items(items = data.list) { item: Weatheritem ->
-                Text(item.temp.max.toString())
+                WeatherDetailRow(weather = item )
 
                 }
 
@@ -174,6 +175,29 @@ fun MainContent(data: Weather) {
 
     }
 
+}
+
+@Composable
+fun WeatherDetailRow(weather: Weatheritem) {
+    val imageUrl = " https://openweathermap.org/img/wn/${weather.weather[0].icon}.png"
+  Surface(
+      Modifier
+          .padding(3.dp)
+          .fillMaxWidth(),
+            shape =  CircleShape.copy(topEnd = CornerSize(6.dp)),
+      color = Color.White) {
+      Row(modifier = Modifier.fillMaxWidth(),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.SpaceBetween) {
+
+          Text(formatDate(weather.dt)
+              .split(",")[0],
+          modifier = Modifier.padding(start = 5.dp))
+          WeatherStateImage(imageUrl = imageUrl)
+
+      }
+
+  }
 }
 
 @Composable
