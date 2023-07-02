@@ -50,6 +50,7 @@ import com.example.jetweatherforecast.data.DataorException
 import com.example.jetweatherforecast.model.Weather
 import com.example.jetweatherforecast.model.WeatherObject
 import com.example.jetweatherforecast.model.Weatheritem
+import com.example.jetweatherforecast.navigation.WeatherScreens
 import com.example.jetweatherforecast.utils.formatDate
 import com.example.jetweatherforecast.utils.formatDateTime
 import com.example.jetweatherforecast.utils.formatDecimals
@@ -87,8 +88,11 @@ fun MainScaffold(weather: Weather,navController: NavController) {
     Scaffold(topBar = {
 
         WeatherAppBar(title = weather.city.name + ",${weather.city.country}",
-
             navController= navController,
+            onAddActionClicked = {
+                                 navController.navigate(WeatherScreens.SearchScreen.name)
+
+            },
             elevation = 5.dp)
         {
             Log.d("TAG", "MainScaffold: Button Clicked")
