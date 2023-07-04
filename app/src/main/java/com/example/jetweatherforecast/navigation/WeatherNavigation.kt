@@ -17,6 +17,7 @@ fun WeatherNavigation() {
         composable(WeatherScreens.SplashScreen.name){
             WeatherSplashScreen(navController = navController)
         }
+        val route = WeatherScreens.MainScreen.name
         composable(WeatherScreens.MainScreen.name){
             val mainViewModel = hiltViewModel<MainViewModel>()
             MainScreen(navController = navController,mainViewModel)
