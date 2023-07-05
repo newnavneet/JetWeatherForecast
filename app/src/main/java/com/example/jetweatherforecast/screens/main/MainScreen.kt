@@ -2,11 +2,9 @@ package com.example.jetweatherforecast.screens.main
 
 import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,17 +12,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 
 
 import androidx.compose.runtime.Composable
@@ -32,27 +26,16 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.compose.rememberImagePainter
-import com.example.jetweatherforecast.R
-import com.example.jetweatherforecast.WeatherApp
 import com.example.jetweatherforecast.data.DataorException
 import com.example.jetweatherforecast.model.Weather
-import com.example.jetweatherforecast.model.WeatherObject
 import com.example.jetweatherforecast.model.Weatheritem
 import com.example.jetweatherforecast.navigation.WeatherScreens
 import com.example.jetweatherforecast.utils.formatDate
-import com.example.jetweatherforecast.utils.formatDateTime
 import com.example.jetweatherforecast.utils.formatDecimals
 import com.example.jetweatherforecast.widgets.HumidityWindPressureRow
 import com.example.jetweatherforecast.widgets.SunsetSunRiseRow
@@ -61,13 +44,16 @@ import com.example.jetweatherforecast.widgets.WeatherDetailRow
 import com.example.jetweatherforecast.widgets.WeatherStateImage
 
 @Composable
-fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hiltViewModel()){
-    Text(text = "Main Screen")
-
+fun MainScreen(
+    navController: NavController,
+    mainViewModel: MainViewModel = hiltViewModel(),
+    city: String?
+){
+    Log.d("TAG", "MainScreen: $city ")
     val weatherData = produceState<DataorException<Weather,Boolean,Exception>>(
         initialValue = DataorException(loading = true) ){
         // where state is produced you
-        value = mainViewModel.getWeatherData(city = "Maputo")
+        value = mainViewModel.getWeatherData(city = city.toString())
 
     }.value
 

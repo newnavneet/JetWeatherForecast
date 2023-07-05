@@ -37,10 +37,7 @@ fun JetWeatherForecastTheme(
     }
 
     MaterialTheme(
-        colors = colors, typography = kotlin.text.Typography, shapes = Shapes, content = content
+        colors = colors, typography = Typography, shapes = Shapes, content = content
     )
 }
 
-fun MaterialTheme(colors: Colors, typography: Typography, shapes: Shapes, content: @Composable () -> Unit) {
-    TODO("Not yet implemented")
-}
