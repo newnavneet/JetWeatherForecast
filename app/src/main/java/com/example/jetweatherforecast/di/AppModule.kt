@@ -1,6 +1,8 @@
 package com.example.jetweatherforecast.di
 
 import android.provider.SyncStateContract.Constants
+import com.example.jetweatherforecast.data.WeatherDao
+import com.example.jetweatherforecast.data.WeatherDatabase
 import com.example.jetweatherforecast.network.WeatherApi
 import dagger.Module
 import dagger.Provides
@@ -13,6 +15,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
+
+    @Singleton
+    @Provides
+    fun provideWeatherDao(weatherDatabase: WeatherDatabase) : WeatherDao
+    = weatherDatabase.weatherDao()
     @Provides
     @Singleton
     fun provideOpenWeatherApi() : WeatherApi{
