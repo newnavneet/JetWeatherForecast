@@ -20,8 +20,6 @@ class WeatherRepository @Inject constructor(private val api: WeatherApi) {
         Log.d("Inside", "getWeather: $response")
             return DataorException(data = response)
 
-
-
     }
 }
 
