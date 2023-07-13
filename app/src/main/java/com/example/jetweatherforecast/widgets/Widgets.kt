@@ -42,7 +42,6 @@ fun WeatherDetailRow(weather: Weatheritem) {
         Row(modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween) {
-
             Text(
                 formatDate(weather.dt)
                 .split(",")[0],
@@ -55,13 +54,14 @@ fun WeatherDetailRow(weather: Weatheritem) {
                 Text(weather.weather[0].description,
                     modifier = Modifier.padding(4.dp),
                     style = MaterialTheme.typography.caption)
+
             }
             Text(text = buildAnnotatedString {
                 withStyle(style = SpanStyle(
                     color = Color.Blue.copy(alpha = 0.7f ),
                     fontWeight = FontWeight.SemiBold
-                )
-                ){
+                             )
+                                 ){
                     append(formatDecimals(weather.temp.max) + "º")
                 }
                 withStyle(
@@ -69,6 +69,7 @@ fun WeatherDetailRow(weather: Weatheritem) {
                         color = Color.LightGray)
                 ){
                     append(formatDecimals(weather.temp.min) + "º")
+
                 }
 
             })
@@ -76,6 +77,8 @@ fun WeatherDetailRow(weather: Weatheritem) {
         }
 
     }
+
+
 }
 
 @Composable
@@ -93,13 +96,12 @@ fun SunsetSunRiseRow(weather: Weatheritem) {
                 style = MaterialTheme.typography.caption)
 
         }
-
         Row {
+            Text(text = formatDateTime(weather.sunset),
+                style = MaterialTheme.typography.caption)
             Image(painter = painterResource(id = R.drawable.sunset),
                 contentDescription = "sunset",
                 modifier = Modifier.size(30.dp))
-            Text(text = formatDateTime(weather.sunset),
-                style = MaterialTheme.typography.caption)
 
         }
 
