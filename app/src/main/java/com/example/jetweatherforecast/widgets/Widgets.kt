@@ -45,7 +45,8 @@ fun WeatherDetailRow(weather: Weatheritem) {
             Text(
                 formatDate(weather.dt)
                 .split(",")[0],
-                modifier = Modifier.padding(start = 5.dp))
+                modifier = Modifier.padding(start = 5.dp)
+                )
             WeatherStateImage(imageUrl = imageUrl)
             Surface(modifier = Modifier.padding(0.dp),
                 shape = CircleShape,
@@ -111,7 +112,8 @@ fun SunsetSunRiseRow(weather: Weatheritem) {
 }
 
 @Composable
-fun HumidityWindPressureRow(weather: Weatheritem) {
+fun HumidityWindPressureRow(weather: Weatheritem,
+                            isImperial: Boolean) {
     Row(modifier = Modifier
         .padding(12.dp)
         .fillMaxWidth(),
@@ -140,7 +142,7 @@ fun HumidityWindPressureRow(weather: Weatheritem) {
             Icon(painter = painterResource(id = R.drawable.wind),
                 contentDescription = "wind icon",
                 modifier = Modifier.size(20.dp))
-            Text(text = "${weather.humidity}mph",
+            Text(text = "${formatDecimals(weather.speed)} " + if (isImperial) "mph" else "m/s",
                 style = MaterialTheme.typography.caption)
 
         }
@@ -150,9 +152,8 @@ fun HumidityWindPressureRow(weather: Weatheritem) {
 
 @Composable
 fun WeatherStateImage(imageUrl: String) {
-
-    Image(painter = rememberImagePainter(imageUrl)
-        , contentDescription = " icon image" ,
+    Image(painter = rememberImagePainter(imageUrl) ,
+        contentDescription = " icon image" ,
         modifier = Modifier.size(80.dp))
 
 }

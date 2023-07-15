@@ -8,12 +8,12 @@ import com.example.jetweatherforecast.network.WeatherApi
 import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(private val api: WeatherApi) {
-    suspend fun getWeather(cityQuery:String)
-    : DataorException<Weather,Boolean,Exception> {
+    suspend fun getWeather(cityQuery:String, units: String)
+    :DataorException<Weather,Boolean,Exception> {
         val response = try {
             // invoke the weather api which  acces to because of Di We have injected weather api which knows how to get data from retrofit
           api.getWeather(query = cityQuery)
-        } catch (e: java.lang.Exception){
+        }catch (e: java.lang.Exception){
             Log.d("REX", "getWeather: $e")
             return DataorException(e=e)
         }
@@ -24,4 +24,3 @@ class WeatherRepository @Inject constructor(private val api: WeatherApi) {
 }
 
 
-//
